@@ -1,6 +1,6 @@
 # Milestone 3
 
-For Milestone 3, the acceptance criteria required that we:
+For Milestone 3, the acceptance criteria required the evidence to:
 
 1.	demonstrate that a transaction on an EVM chain can pass data/datum to a Smart Beacon Script on Cardano, which then triggers an asset swap on a Cardano DEX.
 
