@@ -1,0 +1,24 @@
+{
+  "name": "usdc-hosky-example",
+  "version": "0.0.1",
+  "description": "An example usage of Anastasia Labs' off-chain SDK for Smart Handles contract",
+  "main": "./dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsup src/index.ts --minify --format esm,cjs --dts --clean",
+    "lint": "eslint",
+    "test": "test"
+  },
+  "author": "Anastasia Labs",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.12.8",
+    "@typescript-eslint/eslint-plugin": "^7.8.0",
+    "@typescript-eslint/parser": "^7.8.0",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@anastasia-labs/smart-handles-offchain": "^0.1.0"
+  }
+}
