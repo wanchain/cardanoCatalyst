@@ -1,0 +1,161 @@
+cabal-version:      3.0
+name:               contract-router
+version:            0.1.0.0
+author:             Anastasia-Labs
+extra-source-files: CHANGELOG.md
+
+flag testnet
+  description:
+    Flag for picking appropriate hardcoded constants (set to True for preprod).
+  default:     False
+  manual:      True
+
+common lang
+  ghc-options:
+    -Werror -Wall -Wcompat -Wincomplete-uni-patterns
+    -Wno-unused-do-bind -Wno-partial-type-signatures
+    -Wincomplete-record-updates -Wmissing-deriving-strategies
+    -Wno-name-shadowing -Wunused-foralls -fprint-explicit-foralls
+    -fprint-explicit-kinds -Wunused-do-bind
+
+  default-extensions:
+    NoStarIsType
+    AllowAmbiguousTypes
+    BangPatterns
+    BinaryLiterals
+    ConstrainedClassMethods
+    ConstraintKinds
+    DataKinds
+    DeriveAnyClass
+    DeriveDataTypeable
+    DeriveFoldable
+    DeriveFunctor
+    DeriveGeneric
+    DeriveLift
+    DeriveTraversable
+    DerivingStrategies
+    DerivingVia
+    DoAndIfThenElse
+    DuplicateRecordFields
+    EmptyCase
+    EmptyDataDecls
+    EmptyDataDeriving
+    ExistentialQuantification
+    ExplicitForAll
+    FlexibleContexts
+    FlexibleInstances
+    ForeignFunctionInterface
+    GADTSyntax
+    GeneralisedNewtypeDeriving
+    HexFloatLiterals
+    ImplicitPrelude
+    ImportQualifiedPost
+    InstanceSigs
+    KindSignatures
+    LambdaCase
+    MonomorphismRestriction
+    MultiParamTypeClasses
+    NamedFieldPuns
+    NamedWildCards
+    NumericUnderscores
+    OverloadedLabels
+    OverloadedStrings
+    PackageImports
+    PartialTypeSignatures
+    PatternGuards
+    PolyKinds
+    PostfixOperators
+    QualifiedDo
+    RankNTypes
+    RecordWildCards
+    RelaxedPolyRec
+    ScopedTypeVariables
+    StandaloneDeriving
+    StandaloneKindSignatures
+    TemplateHaskell
+    TupleSections
+    TypeApplications
+    TypeFamilies
+    TypeOperators
+    TypeSynonymInstances
+    UndecidableInstances
+    ViewPatterns
+    NoFieldSelectors
+    OverloadedRecordDot
+
+  default-language:   GHC2021
+
+common dependencies
+  build-depends:
+    , aeson
+    , aeson-pretty
+    , ansi-terminal
+    , base
+    , base16-bytestring
+    , bytestring
+    , cardano-binary
+    , cborg
+    , data-default
+    , directory
+    , liqwid-plutarch-extra
+    , plutarch
+    , plutus-core
+    , plutus-ledger-api
+    , plutus-tx
+    , ply-core
+    , ply-plutarch
+    , serialise
+    , smart-handles
+    , text
+
+common test-dependencies
+  build-depends:
+    , contract-router
+    , hedgehog
+    , hedgehog-quickcheck
+    , plutarch-context-builder
+    , plutarch-quickcheck
+    , plutarch-unit
+    , tasty
+    , tasty-hedgehog
+    , tasty-hunit
+    , tasty-quickcheck
+    , text
+
+library
+  import:          lang, dependencies
+  exposed-modules:
+    Business.MinswapV2
+    Business.MinswapV2.Canceller
+    Business.MinswapV2.Constants
+    Business.MinswapV2.Utils
+    Cli.Compilation
+    Cli.Utils
+    RouterConstants
+    RouterIn
+    RouterOut
+    Types
+    Utils
+
+  hs-source-dirs:  src
+
+  if flag(testnet)
+    hs-source-dirs: src, src-testnet
+
+  else
+    hs-source-dirs: src, src-mainnet
+
+test-suite contract-router-test
+  import:         lang, dependencies, test-dependencies
+  type:           exitcode-stdio-1.0
+  build-depends:  contract-router
+  main-is:        Spec.hs
+  hs-source-dirs: test
+  other-modules:  ContractRouterSpec
+
+executable contract-router
+  import:         lang, dependencies
+  build-depends:  contract-router
+  main-is:        Main.hs
+  build-depends:  contract-router
+  hs-source-dirs: app

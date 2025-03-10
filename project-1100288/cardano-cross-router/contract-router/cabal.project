@@ -1,0 +1,11 @@
+index-state: 2022-11-14T00:00:00Z
+
+packages: ./.
+
+tests: true
+
+source-repository-package
+    type: git
+    location: https://github.com/Anastasia-Labs/smart-handles.git
+    tag: 014d21349c29b062500dfd953edd5f2ab75b5e95
+    --sha256: 1cv0lmhshv4xsj4w73zmcgapz8imw08khw248925mbsw7pqkdgmc
