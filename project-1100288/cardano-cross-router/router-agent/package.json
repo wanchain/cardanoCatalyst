@@ -1,0 +1,40 @@
+{
+  "name": "wanchain-router-agent",
+  "version": "0.1.0",
+  "description": "CLI applications for submitting and monitoring RouterIn & RouterOut contracts",
+  "main": "dist/index.js",
+  "type": "module",
+  "bin": {
+    "minswap-cli": "./dist/minswap-cli",
+    "router-out-cli": "./dist/router-out-cli"
+  },
+  "files": [
+    "/dist/"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --minify --format esm && pnpm run build:minswap-cli && pnpm run build:router-out-cli",
+    "build:minswap-cli": "tsup src/router-in/minswap-cli.ts --minify --format esm",
+    "build:router-out-cli": "tsup src/router-out-cli.ts --minify --format esm",
+    "quick-test": "tsup src/index.ts --format esm && node dist/index.js --help",
+    "test": "export NODE_ENV='emulator' && vitest run"
+  },
+  "author": "Anastasia Labs",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.16.1",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5",
+    "vitest": "^2.0.5"
+  },
+  "dependencies": {
+    "@anastasia-labs/cardano-multiplatform-lib-nodejs": "^6.0.2-3",
+    "@anastasia-labs/smart-handles-agent": "^0.3.5",
+    "@anastasia-labs/smart-handles-offchain": "^0.3.5",
+    "@blockfrost/blockfrost-js": "^5.7.0",
+    "@commander-js/extra-typings": "^12.1.0",
+    "@minswap/sdk": "0.3.3",
+    "bignumber.js": "^9.1.2",
+    "lucid-cardano": "0.10.1"
+  },
+  "packageManager": "pnpm@9.7.1+sha512.faf344af2d6ca65c4c5c8c2224ea77a81a5e8859cbc4e06b1511ddce2f0151512431dd19e6aff31f2c6a8f5f2aced9bd2273e1fed7dd4de1868984059d2c4247"
+}
