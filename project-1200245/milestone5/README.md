@@ -2,8 +2,7 @@
 
 For the Final Miletone, the acceptance criteria required that:
 
-1. a project closeout report;
-2. a final closeout video be published.
+1. a project closeout report and final closeout video be published.
 
 ## Project Closeout Report
 
