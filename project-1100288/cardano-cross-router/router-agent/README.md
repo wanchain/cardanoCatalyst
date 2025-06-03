@@ -123,25 +123,25 @@ allow it reclaim an order at RouterIn.
     ...
     ```
 
-1. Build the Docker image:
+2. Build the Docker image:
 
     ```sh
     make docker-build
     ```
 
-1. Start the Docker container:
+3. Start the Docker container:
 
     ```sh
     make docker-up
     ```
 
-1. View logs:
+4. View logs:
 
     ```sh
     make docker-logs
     ```
 
-1. Exec into router agent and run desired commands:
+5. Exec into router agent and run desired commands:
 
     ```sh
     docker exec -it router-agent /bin/sh
@@ -151,7 +151,7 @@ allow it reclaim an order at RouterIn.
     /usr/src/app $ node dist/minswap-cli.js Preprod Single monitor
     ```
 
-1. Stop the Docker container:
+6. Stop the Docker container:
 
     ```sh
     make docker-down
