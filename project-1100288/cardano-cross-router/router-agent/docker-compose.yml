@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+    router-agent:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        environment:
+            SEED_PHRASE: "agent's wallet seed phrase"
+            BLOCKFROST_KEY: "blockfrost api key"
+            KUPO_URL: "authenticated kupo instance url"
+            OGMIOS_URL: "authenticated ogmios instance url"
+        ports:
+            - "3000:3000"
+        restart: unless-stopped
+
+  cardano-node:
+    image: ghcr.io/blinklabs-io/cardano-node:10.4.1-3
+    restart: unless-stopped
+    working_dir: /opt/cardano/node
+    command: ["start.sh"]
+    environment:
+      - CARDANO_NETWORK=preprod
+      - CARDANO_NODE_BIND_PORT=6000
+      - CARDANO_NODE_TOPOLOGY=/opt/cardano/node/topology.json
+    ports:
+      - 6000:6000
+    volumes:
+      - ./:/opt/cardano/node
+    logging:
+        options:
+            max-size: "30m"
+    user: 1002:1003
+
+  ogmios:
+    image: europe-west6-docker.pkg.dev/maestro-org-development/dapp-developer-platform-cardano/ogmios:5.6.0
+    restart: unless-stopped
+    working_dir: /opt/cardano/node
+    command:
+      - ogmios
+      - --host
+      - "0.0.0.0"
+      - --node-config
+      - /maestro/etc/preprod/config.json
+      - --node-socket
+      - /opt/cardano/node/ipc/node.socket
+    volumes:
+      - ./:/opt/cardano/node
+    logging:
+        options:
+            max-size: "30m"
+    user: 1002:1003
