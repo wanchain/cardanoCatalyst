@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
     router-agent:
         build:
@@ -12,8 +10,11 @@ services:
         environment:
             SEED_PHRASE: "agent's wallet seed phrase"
             BLOCKFROST_KEY: "blockfrost api key"
-            KUPO_URL: "authenticated kupo instance url"
-            OGMIOS_URL: "authenticated ogmios instance url"
+            KUPO_URL: "http://kupo:1442"
+            OGMIOS_URL: "http://ogmios:1337"
+        command: ["tail", "-f", "/dev/null"]
+        tty: true
+        stdin_open: true
         logging:
             driver: "json-file"
             options:
