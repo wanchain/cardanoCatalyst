@@ -22,7 +22,7 @@ Ensure you have the following installed on your system:
 -   [Docker](https://www.docker.com/)
 -   [Docker Compose](https://docs.docker.com/compose/)
 
-### Locally
+### Deploy locally
 
 1. Install dependencies:
 
@@ -37,41 +37,16 @@ Ensure you have the following installed on your system:
     ```
 
 3. Run the project:
+
     ```sh
     pnpm start
     ```
 
-### Using Docker
-
-1. Build the Docker image:
-
-    ```sh
-    make docker-build
-    ```
-
-2. Start the Docker container:
-
-    ```sh
-    make docker-up
-    ```
-
-3. View logs:
-
-    ```sh
-    make docker-logs
-    ```
-
-4. Stop the Docker container:
-
-    ```sh
-    make docker-down
-    ```
-
-5. Adjust `pollingInterval` in both `src/router-in/minswap/config.ts` and
+4. Adjust `pollingInterval` in both `src/router-in/minswap/config.ts` and
    `src/router-out/config.ts` as desired (only applies to the `monitor` endpoint
    and determines how often each of the scripts are queried)
 
-6. Currently this application uses a combination of Blockfrost and Kupmios,
+5. Currently this application uses a combination of Blockfrost and Kupmios,
    therefore you'll need to set 4 environment variables:
 
 ```sh
@@ -131,6 +106,42 @@ also a `routerOutRouterFee` of 1₳, the minimum required ADA will be 7₳.
 
 The `--owner` must also always be set to the treasury's address in order to
 allow it reclaim an order at RouterIn.
+
+### Deploy with Docker Compose
+
+1. Build the Docker image:
+
+    ```sh
+    make docker-build
+    ```
+
+2. Start the Docker container:
+
+    ```sh
+    make docker-up
+    ```
+
+3. View logs:
+
+    ```sh
+    make docker-logs
+    ```
+
+4. Exec into router agent and run desired commands:
+
+    ```sh
+    docker exec -it router-agent /bin/sh
+
+    ...
+
+    /usr/src/app $ node dist/minswap-cli.js Preprod Single monitor
+    ```
+
+5. Stop the Docker container:
+
+    ```sh
+    make docker-down
+    ```
 
 ## Sample Transactions – `FreeUSD` to `FreeBTC`
 
