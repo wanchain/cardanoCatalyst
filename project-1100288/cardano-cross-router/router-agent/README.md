@@ -109,25 +109,39 @@ allow it reclaim an order at RouterIn.
 
 ### Deploy with Docker Compose
 
+1. Update environment variables of the router-agent service in `docker-compose.yml`:
+
+    ```
+    services:
+        router-agent:
+            ...
+            environment:
+                SEED_PHRASE: "agent's wallet seed phrase"
+                BLOCKFROST_KEY: "blockfrost api key"
+                KUPO_URL: "http://kupo:1442"
+                OGMIOS_URL: "http://ogmios:1337"
+    ...
+    ```
+
 1. Build the Docker image:
 
     ```sh
     make docker-build
     ```
 
-2. Start the Docker container:
+1. Start the Docker container:
 
     ```sh
     make docker-up
     ```
 
-3. View logs:
+1. View logs:
 
     ```sh
     make docker-logs
     ```
 
-4. Exec into router agent and run desired commands:
+1. Exec into router agent and run desired commands:
 
     ```sh
     docker exec -it router-agent /bin/sh
@@ -137,7 +151,7 @@ allow it reclaim an order at RouterIn.
     /usr/src/app $ node dist/minswap-cli.js Preprod Single monitor
     ```
 
-5. Stop the Docker container:
+1. Stop the Docker container:
 
     ```sh
     make docker-down
