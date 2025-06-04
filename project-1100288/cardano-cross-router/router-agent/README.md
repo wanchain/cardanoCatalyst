@@ -127,7 +127,7 @@ allow it reclaim an order at RouterIn.
 
 #### Deployment steps
 
-1. Update environment variables [.env](.env).
+1. Update environment variables [.env](.env) (copy `.env.example` to `.env`).
 
 2. Build the Docker image:
 
