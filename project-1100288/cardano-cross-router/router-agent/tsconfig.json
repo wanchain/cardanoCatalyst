@@ -14,5 +14,6 @@
     "strict": true,
     "skipLibCheck": true
   },
-  "include": ["./src/*", "../contract-router/compiled-mainnet", "../contract-router/compiled-testnet"]
+//   "include": ["./src/*", "../contract-router/compiled-mainnet", "../contract-router/compiled-testnet"]
+  "include": ["./src/*", "../contract-router/compiled-testnet"]
 }

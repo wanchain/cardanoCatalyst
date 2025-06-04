@@ -1,0 +1,184 @@
+services:
+    router-in-minswap-v2-monitor:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: router-in-minswap-v2-monitor
+        restart: unless-stopped
+        volumes:
+            - agent-app:/usr/src/app
+        environment:
+            - SEED_PHRASE=${SEED_PHRASE}
+            - BLOCKFROST_KEY=${BLOCKFROST_KEY}
+            - KUPO_URL=${KUPO_URL}
+            - OGMIOS_URL=${OGMIOS_URL}
+        command:
+            [
+                "node",
+                "dist/minswap-cli.js",
+                "Preprod",
+                "Single",
+                "monitor",
+                "-q",
+            ]
+        tty: true
+        stdin_open: true
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "400k"
+                max-file: "20"
+        depends_on:
+            - cardano-node
+            - ogmios
+            - kupo
+
+    router-out-monitor:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: router-out-monitor
+        restart: unless-stopped
+        volumes:
+            - agent-app:/usr/src/app
+        environment:
+            - SEED_PHRASE=${SEED_PHRASE}
+            - BLOCKFROST_KEY=${BLOCKFROST_KEY}
+            - KUPO_URL=${KUPO_URL}
+            - OGMIOS_URL=${OGMIOS_URL}
+        command:
+            [
+                "node",
+                "dist/router-out-cli.js",
+                "Preprod",
+                "Single",
+                "monitor",
+                "-q",
+            ]
+        tty: true
+        stdin_open: true
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "400k"
+                max-file: "20"
+        depends_on:
+            - cardano-node
+            - ogmios
+            - kupo
+
+    router-agent-playground:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: router-agent-playground
+        restart: unless-stopped
+        volumes:
+            - agent-app:/usr/src/app
+        environment:
+            - SEED_PHRASE=${SEED_PHRASE}
+            - BLOCKFROST_KEY=${BLOCKFROST_KEY}
+            - KUPO_URL=${KUPO_URL}
+            - OGMIOS_URL=${OGMIOS_URL}
+        command: ["tail", "-f", "/dev/null"]
+        tty: true
+        stdin_open: true
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "400k"
+                max-file: "20"
+        depends_on:
+            - cardano-node
+            - ogmios
+            - kupo
+
+    cardano-node:
+        image: ghcr.io/blinklabs-io/cardano-node:10.4.1-3
+        container_name: cardano-node
+        restart: unless-stopped
+        ports:
+            - "3001:3001"
+        volumes:
+            - node-db:/data
+            - node-ipc:/ipc
+            - node-config:/opt/cardano/config
+        environment:
+            NETWORK: "preprod"
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "400k"
+                max-file: "20"
+
+    ogmios:
+        image: cardanosolutions/ogmios:v6.12.0
+        container_name: ogmios
+        restart: unless-stopped
+        ports:
+            - "1337:1337"
+        volumes:
+            - node-config:/config/cardano-node
+            - node-ipc:/ipc
+        environment:
+            NETWORK: "preprod"
+        command:
+            [
+                "--host",
+                "0.0.0.0",
+                "--node-socket",
+                "/ipc/node.socket",
+                "--node-config",
+                "/config/cardano-node/preprod/config.json",
+            ]
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "400k"
+                max-file: "20"
+        depends_on:
+            - cardano-node
+
+    kupo:
+        image: cardanosolutions/kupo:v2.10.0
+        container_name: kupo
+        restart: unless-stopped
+        ports:
+            - "1442:1442"
+        volumes:
+            - kupo-db:/db
+            - node-ipc:/ipc
+            - node-config:/config/cardano-node
+        environment:
+            NETWORK: "preprod"
+        command:
+            [
+                "--host",
+                "0.0.0.0",
+                "--port",
+                "1442",
+                "--since",
+                "origin",
+                "--match",
+                "*",
+                "--node-config",
+                "/config/cardano-node/preprod/config.json",
+                "--node-socket",
+                "/ipc/node.socket",
+                "--workdir",
+                "/db",
+            ]
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "400k"
+                max-file: "20"
+        depends_on:
+            - cardano-node
+
+volumes:
+    node-db:
+    node-ipc:
+    node-config:
+    kupo-db:
+    agent-app:
