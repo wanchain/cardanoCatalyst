@@ -109,19 +109,25 @@ allow it reclaim an order at RouterIn.
 
 ### Deploy with Docker Compose
 
-1. Update environment variables of the router-agent service in `docker-compose.yml`:
+#### Services:
 
-    ```
-    services:
-        router-agent:
-            ...
-            environment:
-                SEED_PHRASE: "agent's wallet seed phrase"
-                BLOCKFROST_KEY: "blockfrost api key"
-                KUPO_URL: "http://kupo:1442"
-                OGMIOS_URL: "http://ogmios:1337"
-    ...
-    ```
+-   router-in-minswap-v2-monitor
+-   router-out-monitor
+-   router-agent-playground
+-   cardano-node
+-   ogmios
+-   kupo
+
+#### Environment variables:
+
+-   SEED_PHRASE
+-   BLOCKFROST_KEY
+-   KUPO_URL
+-   OGMIOS_URL
+
+#### Deployment steps
+
+1. Update environment variables [.env](.env).
 
 2. Build the Docker image:
 
