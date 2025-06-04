@@ -9,6 +9,10 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# pnpm related files
+.pnpm-debug.log*
+.pnpm-store/
+
 # Runtime data
 pids/
 *.pid
@@ -116,3 +120,5 @@ Thumbs.db
 *.env
 .dockerignore
 docker-compose.override.yml
+
+dist/

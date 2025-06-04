@@ -141,14 +141,14 @@ allow it reclaim an order at RouterIn.
     make docker-logs
     ```
 
-5. Exec into router agent and run desired commands:
+5. Exec into router agent playground and run desired commands:
 
     ```sh
-    docker exec -it router-agent /bin/sh
+    docker exec -it router-agent-playground /bin/sh
 
     ...
 
-    /usr/src/app $ node dist/minswap-cli.js Preprod Single monitor
+    /usr/src/app $ node dist/minswap-cli.js Preprod Single submit-advanced ...
     ```
 
 6. Stop the Docker container:
