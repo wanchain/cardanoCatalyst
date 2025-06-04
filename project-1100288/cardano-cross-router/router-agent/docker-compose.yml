@@ -12,7 +12,15 @@ services:
             - BLOCKFROST_KEY=${BLOCKFROST_KEY}
             - KUPO_URL=${KUPO_URL}
             - OGMIOS_URL=${OGMIOS_URL}
-        command: ["node", "dist/minswap-cli.js", "Preprod", "Single", "monitor"]
+        command:
+            [
+                "node",
+                "dist/minswap-cli.js",
+                "Preprod",
+                "Single",
+                "monitor",
+                "-q",
+            ]
         tty: true
         stdin_open: true
         logging:
@@ -41,7 +49,7 @@ services:
         command:
             [
                 "node",
-                "dist/minswap-cli.js",
+                "dist/router-out-cli.js",
                 "Preprod",
                 "Single",
                 "monitor",
