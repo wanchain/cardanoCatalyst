@@ -109,35 +109,55 @@ allow it reclaim an order at RouterIn.
 
 ### Deploy with Docker Compose
 
-1. Build the Docker image:
+#### Services:
+
+-   router-in-minswap-v2-monitor
+-   router-out-monitor
+-   router-agent-playground
+-   cardano-node
+-   ogmios
+-   kupo
+
+#### Environment variables:
+
+-   SEED_PHRASE
+-   BLOCKFROST_KEY
+-   KUPO_URL
+-   OGMIOS_URL
+
+#### Deployment steps
+
+1. Update environment variables [.env](.env) (copy `.env.example` to `.env`).
+
+2. Build the Docker image:
 
     ```sh
     make docker-build
     ```
 
-2. Start the Docker container:
+3. Start the Docker container:
 
     ```sh
     make docker-up
     ```
 
-3. View logs:
+4. View logs:
 
     ```sh
     make docker-logs
     ```
 
-4. Exec into router agent and run desired commands:
+5. Exec into router agent playground and run desired commands:
 
     ```sh
-    docker exec -it router-agent /bin/sh
+    docker exec -it router-agent-playground /bin/sh
 
     ...
 
-    /usr/src/app $ node dist/minswap-cli.js Preprod Single monitor
+    /usr/src/app $ node dist/minswap-cli.js Preprod Single submit-advanced ...
     ```
 
-5. Stop the Docker container:
+6. Stop the Docker container:
 
     ```sh
     make docker-down

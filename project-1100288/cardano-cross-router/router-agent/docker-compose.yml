@@ -1,17 +1,77 @@
 services:
-    router-agent:
+    router-in-minswap-v2-monitor:
         build:
             context: .
             dockerfile: Dockerfile
-        container_name: router-agent
+        container_name: router-in-minswap-v2-monitor
         restart: unless-stopped
-        ports:
-            - "3000:3000"
+        volumes:
+            - agent-app:/usr/src/app
         environment:
-            SEED_PHRASE: "agent's wallet seed phrase"
-            BLOCKFROST_KEY: "blockfrost api key"
-            KUPO_URL: "http://kupo:1442"
-            OGMIOS_URL: "http://ogmios:1337"
+            - SEED_PHRASE=${SEED_PHRASE}
+            - BLOCKFROST_KEY=${BLOCKFROST_KEY}
+            - KUPO_URL=${KUPO_URL}
+            - OGMIOS_URL=${OGMIOS_URL}
+        command: ["node", "dist/minswap-cli.js", "Preprod", "Single", "monitor"]
+        tty: true
+        stdin_open: true
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "400k"
+                max-file: "20"
+        depends_on:
+            - cardano-node
+            - ogmios
+            - kupo
+
+    router-out-monitor:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: router-out-monitor
+        restart: unless-stopped
+        volumes:
+            - agent-app:/usr/src/app
+        environment:
+            - SEED_PHRASE=${SEED_PHRASE}
+            - BLOCKFROST_KEY=${BLOCKFROST_KEY}
+            - KUPO_URL=${KUPO_URL}
+            - OGMIOS_URL=${OGMIOS_URL}
+        command:
+            [
+                "node",
+                "dist/minswap-cli.js",
+                "Preprod",
+                "Single",
+                "monitor",
+                "-q",
+            ]
+        tty: true
+        stdin_open: true
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "400k"
+                max-file: "20"
+        depends_on:
+            - cardano-node
+            - ogmios
+            - kupo
+
+    router-agent-playground:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: router-agent-playground
+        restart: unless-stopped
+        volumes:
+            - agent-app:/usr/src/app
+        environment:
+            - SEED_PHRASE=${SEED_PHRASE}
+            - BLOCKFROST_KEY=${BLOCKFROST_KEY}
+            - KUPO_URL=${KUPO_URL}
+            - OGMIOS_URL=${OGMIOS_URL}
         command: ["tail", "-f", "/dev/null"]
         tty: true
         stdin_open: true
@@ -113,3 +173,4 @@ volumes:
     node-ipc:
     node-config:
     kupo-db:
+    agent-app:
