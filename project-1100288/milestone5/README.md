@@ -1,11 +1,10 @@
 # Milestone 5
 
-For the Final Miletone, the acceptance criteria required that:
+For the Final Milestone, the acceptance criteria required that a transaction on an EVM chain can trigger a Smart Beacon Script on Cardano, which then executes an asset swap on a DEX on Cardano, which then triggers a cross-chain transaction to bridge the traded-for asset from Cardano to the user’s wallet address on an EVM chain. Also required:
 
-1. A demonstration that a transaction on an EVM chain can trigger a Smart Beacon Script on Cardano, which then executes an asset swap on a DEX on Cardano, which then triggers a cross-chain transaction to bridge the traded-for asset from Cardano to the user’s wallet address on an EVM chain.
-2.	A final report.
-3.	A video demonstration.
-4.	A publicly available demo.
+1.	A final report.
+2.	A video demonstration.
+3.	A publicly available demo.
 
 ## Final Report
 
