@@ -48,5 +48,5 @@ _Note: Specific KPIs are not relevant to this project._
 
 ## Links to other relevant project sources or documents
 
-  - Link to video demonstration: https://www.youtube.com/watch?v=hwSDyy3mNCs
+  - Link to final closeout video and video demonstration: [https://www.youtube.com/watch?v=hwSDyy3mNCs](https://www.youtube.com/watch?v=pGDZg4gUe3E)
   - Public demo can be accessed here: https://wan-bridge-preview-git-dev-dapp-wanchain.vercel.app/AssetBridge?group=dev
