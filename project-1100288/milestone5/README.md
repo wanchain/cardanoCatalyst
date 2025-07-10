@@ -28,7 +28,19 @@ For the Final Milestone, the acceptance criteria required that a transaction on 
 
 ### Date project completed
 
-* February 26, 2025 
+* February 26, 2025
+
+### List of challenge KPIs and how the project addressed them
+
+_Note: Specific KPIs are not relevant to this project._
+
+### List of project KPIs and how the project addressed them
+
+_Note: Specific KPIs are not relevant to this project._
+
+### Next steps for the product or service developed
+
+* Interested projects/DAPPs can now develop customised Smart Routers that can interact with Wanchain’s cross-chain technology to implement seamless cross-chain features and interactions. The Wanchain team will provide technical support, as needed.
 
 ## Final thoughts/comments:
 
