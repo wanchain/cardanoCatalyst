@@ -44,9 +44,9 @@ _Note: Specific KPIs are not relevant to this project._
 
 ## Final thoughts/comments:
 
-  - The Wanchain team has successfully demonstrated that a transaction on an EVM chain can trigger a Smart Beacon Script on Cardano, which then executes an asset swap on a DEX on Cardano, which then triggers a cross-chain transaction to bridge the traded-for asset from Cardano to the user’s wallet address on an EVM chain. This is a true cross-chain application. However, despite this approach being technically functional, there are non-negligible scalability issues. Notably, each specific use case requires configuration of smart router scripts. So, while the outcome of this project is fully delivered and represents a technical achievement, it is better cast as a MVP rather than a production-ready tool. True cross-chain applications would be better serviced by a full cross-chain data transfer/message passing protocol.
+  - We have successfully demonstrated that a transaction on an EVM chain can trigger a Smart Beacon Script on Cardano, which then executes an asset swap on a DEX on Cardano, which then triggers a cross-chain transaction to bridge the traded-for asset from Cardano to the user’s wallet address on an EVM chain. This is, functionally, a true cross-chain application. This tool, as provided, can be used to interact with any Cardano Dapp directly from an EVM wallet, including Metamask. However, despite this approach being technically functional, there are non-negligible scalability issues stemming from the Smart Routers (a listed dependency of this proposal). Notably, each specific use case requires configuration of smart router scripts. So, while the outcome of this project is fully delivered and represents a technical achievement, true cross-chain applications would be better serviced by a full cross-chain data transfer/message passing protocol.
 
 ## Links to other relevant project sources or documents
 
-  - Link to final closeout video and video demonstration: [https://www.youtube.com/watch?v=hwSDyy3mNCs](https://www.youtube.com/watch?v=pGDZg4gUe3E)
+  - Link to final closeout video and video demonstration: https://vimeo.com/1101169208
   - Public demo can be accessed here: https://wan-bridge-preview-git-dev-dapp-wanchain.vercel.app/AssetBridge?group=dev
